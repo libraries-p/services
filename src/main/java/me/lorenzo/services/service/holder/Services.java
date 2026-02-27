@@ -13,12 +13,12 @@ public class Services {
         services.put(service.asType(), service);
     }
 
-    public static <T extends Service<T>> Optional<Service<T>> get(Class<T> clazz) {
+    public static <T extends Service<T>> Optional<T> get(Class<T> clazz) {
         return Optional.ofNullable(clazz.cast(services.get(clazz)));
     }
 
-    public static <T extends Service<T>> Service<T> getOrThrow(Class<T> clazz) {
-        Service<T> service = clazz.cast(services.get(clazz));
+    public static <T extends Service<T>> T getOrThrow(Class<T> clazz) {
+        T service = clazz.cast(services.get(clazz));
 
         if (service == null) {
             throw new NullPointerException("Unable to found service: " + clazz.getSimpleName());
