@@ -7,17 +7,17 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Services {
-    private final Map<Class<? extends Service<?>>, Service<?>> services = new HashMap<>();
+    private final static Map<Class<? extends Service<?>>, Service<?>> services = new HashMap<>();
 
-    public void register(Service<?> service) {
+    public static void register(Service<?> service) {
         services.put(service.asType(), service);
     }
 
-    public <T extends Service<T>> Optional<Service<T>> get(Class<T> clazz) {
+    public static <T extends Service<T>> Optional<Service<T>> get(Class<T> clazz) {
         return Optional.ofNullable(clazz.cast(services.get(clazz)));
     }
 
-    public <T extends Service<T>> Service<T> getOrThrow(Class<T> clazz) {
+    public static <T extends Service<T>> Service<T> getOrThrow(Class<T> clazz) {
         Service<T> service = clazz.cast(services.get(clazz));
 
         if (service == null) {
